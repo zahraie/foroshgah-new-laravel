@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\Market\BrandController;
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\Market\CommentController;
 use App\Http\Controllers\Admin\Market\CategoryController;
 
 /*
@@ -40,6 +42,26 @@ Route::prefix('admin')->namespace('Admin')->group(function(){
             Route::get('/edit/{id}',[CategoryController::class ,'edit'])->name('admin.market.category.edit');
             Route::put('/update/{id}',[CategoryController::class ,'update'])->name('admin.market.category.update');
             Route::delete('/delete/{id}',[CategoryController::class ,'destroy'])->name('admin.market.category.destroy');
+        });
+
+        //brand
+        Route::prefix('brand')->group(function(){
+            Route::get('/',[BrandController::class ,'index'])->name('admin.market.brand.index');
+            Route::get('/create',[BrandController::class ,'create'])->name('admin.market.brand.create');
+            Route::post('/store',[BrandController::class ,'store'])->name('admin.market.brand.store');
+            Route::get('/edit/{id}',[BrandController::class ,'edit'])->name('admin.market.brand.edit');
+            Route::put('/update/{id}',[BrandController::class ,'update'])->name('admin.market.brand.update');
+            Route::delete('/delete/{id}',[BrandController::class ,'destroy'])->name('admin.market.brand.destroy');
+        });
+
+        //comment
+        Route::prefix('comment')->group(function(){
+            Route::get('/',[CommentController::class ,'index'])->name('admin.market.comment.index');
+            Route::post('/store',[CommentController::class ,'store'])->name('admin.market.comment.store');
+            Route::get('/show',[CommentController::class ,'show'])->name('admin.market.comment.show');
+            Route::get('/edit/{id}',[CommentController::class ,'edit'])->name('admin.market.comment.edit');
+            Route::put('/update/{id}',[CommentController::class ,'update'])->name('admin.market.comment.update');
+            Route::delete('/delete/{id}',[CommentController::class ,'destroy'])->name('admin.market.comment.destroy');
         });
     });
 });
