@@ -6,6 +6,7 @@
 
 @section('content')
 
+
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
@@ -30,14 +31,15 @@
             </section>
 
             <section>
-                <form action="{{ route('admin.content.category.store') }}" method="post" enctype="multipart/form-data" id="form">
+                <form action="{{ route('admin.content.category.update', $postCategory->id) }}" method="post" enctype="multipart/form-data" id="form">
                     @csrf
+                    {{ method_field('put') }}
                     <section class="row">
 
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="name">نام دسته</label>
-                                <input type="text" class="form-control form-control-sm" name="name" id="name" value="{{ old('name') }}">
+                                <input type="text" class="form-control form-control-sm" name="name" id="name" value="{{ old('name', $postCategory->name) }}">
                             </div>
                             @error('name')
                                 <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -51,7 +53,7 @@
                         <section class="col-12 col-md-6 my-2">
                             <div class="form-group">
                                 <label for="tags">تگ ها</label>
-                                <input type="hidden" class="form-control form-control-sm"  name="tags" id="tags" value="{{ old('tags') }}">
+                                <input type="hidden" class="form-control form-control-sm"  name="tags" id="tags" value="{{ old('tags', $postCategory->tags) }}">
                                 <select class="select2 form-control form-control-sm" id="select_tags" multiple>
 
                                 </select>
@@ -69,8 +71,8 @@
                             <div class="form-group">
                                 <label for="status">وضعیت</label>
                                 <select name="status" id="" class="form-control form-control-sm" id="status">
-                                    <option value="0" @if(old('status') == 0) selected @endif>غیرفعال</option>
-                                    <option value="1" @if(old('status') == 1) selected @endif>فعال</option>
+                                    <option value="0" @if(old('status', $postCategory->status) == 0) selected @endif>غیرفعال</option>
+                                    <option value="1" @if(old('status', $postCategory->status) == 1) selected @endif>فعال</option>
                                 </select>
                             </div>
                             @error('status')
@@ -101,7 +103,7 @@
                             <div class="form-group">
                                 <label for="">توضیحات</label>
                                 <textarea name="description" id="description"  class="form-control form-control-sm" rows="6">
-                                    {{ old('description') }}
+                                    {{ old('description', $postCategory->description) }}
                                 </textarea>
                             </div>
                             @error('description')
@@ -133,7 +135,6 @@
     <script>
         CKEDITOR.replace('description');
     </script>
-
     <script>
         $(document).ready(function () {
             var tags_input = $('#tags');
@@ -164,4 +165,3 @@
     </script>
 
 @endsection
-

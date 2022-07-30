@@ -2,7 +2,6 @@
 
 @section('head-tag')
 <title>دسته بندی</title>
-
 @endsection
 
 @section('content')
@@ -11,25 +10,25 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-      <li class="breadcrumb-item active font-size-12" aria-current="page">دسته بندی</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> دسته بندی</li>
     </ol>
-</nav>
+  </nav>
 
-<section class="row">
+  <section class="row">
     <section class="col-12">
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                    دسته بندی
+                  دسته بندی
                 </h5>
             </section>
 
-            <secton class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
+            <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                 <a href="{{ route('admin.content.category.create') }}" class="btn btn-info btn-sm">ایجاد دسته بندی</a>
                 <div class="max-width-16-rem">
                     <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                 </div>
-            </secton>
+            </section>
 
             <section class="table-responsive">
                 <table class="table table-striped table-hover">
@@ -37,40 +36,45 @@
                         <tr>
                             <th>#</th>
                             <th>نام دسته بندی</th>
-                            <th>دسته والد</th>
+                            <th>توضیحات</th>
+                            <th>اسلاگ</th>
+                            <th>عکس</th>
+                            <th>تگ ها</th>
+                            <th>وضعیت</th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($postCategories as $postCategory)
+
                         <tr>
                             <th>1</th>
-                            <td>نمایشگر</td>
-                            <td>کالای الکترونیکی</td>
+                            <td>{{ $postCategory->name }}</td>
+                            <td>{{ $postCategory->description }}</td>
+                            <td>{{ $postCategory->slug }}</td>
+                            <td>
+                                <img src="{{ asset($postCategory->image ) }}" alt="" width="50" height="50">
+                            </td>
+                            <td>{{ $postCategory->tags }}</td>
+                            <td>
+                                <label>
+                                    <input id="{{ $postCategory->id }}" onchange="changeStatus({{ $postCategory->id }})" data-url="{{ route('admin.content.category.status', $postCategory->id) }}" type="checkbox" @if ($postCategory->status === 1)
+                                    checked
+                                    @endif>
+                                </label>
+                            </td>
                             <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>ویرایش </a>
-                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i>حذف </button>
+                                <a href="{{ route('admin.content.category.edit', $postCategory->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.content.category.destroy', $postCategory->id) }}" method="post">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
+                            </form>
                             </td>
                         </tr>
 
-                        <tr>
-                            <th>2</th>
-                            <td>نمایشگر</td>
-                            <td>کالای الکترونیکی</td>
-                            <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>ویرایش </a>
-                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
-                        </tr>
+                        @endforeach
 
-                        <tr>
-                            <th>3</th>
-                            <td>نمایشگر</td>
-                            <td>کالای الکترونیکی</td>
-                            <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </section>
@@ -80,3 +84,34 @@
 </section>
 
 @endsection
+
+
+@section('script')
+
+<script type="text/javascript">
+    function changeStatus(id){
+        var element = $("#" + id)
+        var url = element.attr('data-url')
+        var elementValue = !element.prop('checked');
+
+        $.ajax({
+            url : url,
+            type : "GET",
+            success : function(response){
+                if(response.status){
+                    if(response.checked)
+                    element.prop('checked',true);
+                    else
+                    element.prop('checked', false);
+                }
+                else{
+                    element.prop('checked',elementValue);
+                }
+            }
+        })
+    }
+
+</script>
+
+@endsection
+
