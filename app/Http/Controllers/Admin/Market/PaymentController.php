@@ -11,24 +11,20 @@ class PaymentController extends Controller
     {
         return view('admin.market.payment.index');
     }
-
-    public function online()
-    {
-        return view('admin.market.payment.online');
-    }
-
     public function offline()
     {
-        return view('admin.market.payment.offline');
+        return view('admin.market.payment.index');
     }
-
+    public function online()
+    {
+        return view('admin.market.payment.index');
+    }
     public function attendance()
     {
-        return view('admin.market.payment.attendance');
+        return view('admin.market.payment.index');
     }
-
     public function confirm()
     {
-        return view('admin.market.payment.confirm');
+        return view('admin.market.payment.index');
     }
 }

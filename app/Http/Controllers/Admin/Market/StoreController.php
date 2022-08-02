@@ -22,7 +22,7 @@ class StoreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addToStore()
     {
         return view('admin.market.store.add-to-store');
     }
