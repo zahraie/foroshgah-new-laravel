@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Content\PostCategory;
 use App\Http\Services\Image\ImageService;
 use App\Http\Requests\Admin\Content\PostCategoryRequest;
+use App\Http\Services\Image\ImageCacheService;
 
 class CategoryController extends Controller
 {
@@ -29,6 +30,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        // $imageCache = new ImageCacheService();
+        // return $imageCache->cache('1.png');
         return view('admin.content.category.create');
     }
 
