@@ -2,6 +2,7 @@
 
 namespace App\Models\content;
 
+use App\Models\content\Comment;
 use App\Models\Content\PostCategory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -25,7 +26,13 @@ class Post extends Model
 
     protected $fillable = ['title', 'summary', 'slug', 'image', 'body', 'tags', 'published_at', 'author_id', 'category_id', 'commentable'];
 
-    public function postCategory(){
+    public function postCategory()
+    {
         return $this->belongsTo(PostCategory::class, 'category_id');
+    }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class , 'commentable');
     }
 }
