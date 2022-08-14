@@ -244,9 +244,11 @@ Route::prefix('user')->namespace('User')->group(function(){
         Route::get('/', [AdminUserController::class, 'index'])->name('admin.user.admin-user.index');
         Route::get('/create', [AdminUserController::class, 'create'])->name('admin.user.admin-user.create');
         Route::post('/store', [AdminUserController::class, 'store'])->name('admin.user.admin-user.store');
-        Route::get('/edit/{id}', [AdminUserController::class, 'edit'])->name('admin.user.admin-user.edit');
-        Route::put('/update/{id}', [AdminUserController::class, 'update'])->name('admin.user.admin-user.update');
-        Route::delete('/destroy/{id}', [AdminUserController::class, 'destroy'])->name('admin.user.admin-user.destroy');
+        Route::get('/edit/{admin}', [AdminUserController::class, 'edit'])->name('admin.user.admin-user.edit');
+        Route::put('/update/{admin}', [AdminUserController::class, 'update'])->name('admin.user.admin-user.update');
+        Route::delete('/destroy/{admin}', [AdminUserController::class, 'destroy'])->name('admin.user.admin-user.destroy');
+        Route::get('/status/{user}', [AdminUserController::class, 'status'])->name('admin.user.admin-user.status');
+        Route::get('/activation/{user}', [AdminUserController::class, 'activation'])->name('admin.user.admin-user.activation');
     });
 
     //customer
