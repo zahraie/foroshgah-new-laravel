@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\admin\notify;
+namespace App\Http\Controllers\Admin\Notify;
 
-use App\Models\Notify\SMS;
+use App\Models\Notify\Email;
 use Illuminate\Http\Request;
+use App\Models\Notify\EmailFile;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Notify\SMSRequest;
 
-class SMSController extends Controller
+class EmailFileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Email $email)
     {
-        $sms = SMS::orderBy('created_at', 'desc')->simplePaginate(15);
-        return view('admin.notify.sms.index', compact('sms'));
+        return view('admin.notify.email-file.index',compact('email'));
     }
 
     /**
@@ -27,8 +26,7 @@ class SMSController extends Controller
      */
     public function create()
     {
-        return view('admin.notify.sms.create');
-
+        //
     }
 
     /**
@@ -37,15 +35,9 @@ class SMSController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SMSRequest $request)
+    public function store(Request $request)
     {
-        $inputs = $request->all();
-
-        //date fixed
-        $realTimestampStart = substr($request->published_at, 0, 10);
-        $inputs['published_at'] = date("Y-m-d H:i:s", (int)$realTimestampStart);
-        $sms = SMS::create($inputs);
-        return redirect()->route('admin.notify.sms.index')->with('swal-success', 'پیامک شما با موفقیت ثبت شد');
+        //
     }
 
     /**
@@ -93,12 +85,12 @@ class SMSController extends Controller
         //
     }
 
-    public function status(SMS $sms){
+    public function status(EmailFile $file){
 
-        $sms->status = $sms->status == 0 ? 1 : 0;
-        $result = $sms->save();
+        $file->status = $file->status == 0 ? 1 : 0;
+        $result = $file->save();
         if($result){
-                if($sms->status == 0){
+                if($file->status == 0){
                     return response()->json(['status' => true, 'checked' => false]);
                 }
                 else{
@@ -108,6 +100,5 @@ class SMSController extends Controller
         else{
             return response()->json(['status' => false]);
         }
-
     }
 }
