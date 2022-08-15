@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin\User;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Services\Image\ImageService;
 use App\Http\Requests\Admin\User\AdminUserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class AdminUserController extends Controller
 {
@@ -119,6 +119,7 @@ class AdminUserController extends Controller
         $result = $admin->forceDelete();
         return redirect()->route('admin.user.admin-user.index')->with('swal-success', 'ادمین شما با موفقیت حذف شد');
     }
+
 
     public function status(User $user){
 
