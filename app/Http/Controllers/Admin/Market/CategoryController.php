@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin\Market;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Market\ProductCategory;
 
 class CategoryController extends Controller
 {
@@ -14,6 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $productCategories = ProductCategory::orderBy('created_at', 'desc')->simplePaginate(15);
         return view('admin.market.category.index');
     }
 
