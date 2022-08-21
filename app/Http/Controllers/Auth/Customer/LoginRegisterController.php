@@ -70,5 +70,11 @@ public function loginRegister(LoginRegisterRequest $request)
 
     Otp::create($otpInputs);
 
+    //send sms or email
+
+    if($type == 0){
+        //send sms
+    }
+
 }
 }
