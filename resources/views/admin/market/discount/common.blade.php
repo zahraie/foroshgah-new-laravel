@@ -2,7 +2,6 @@
 
 @section('head-tag')
 <title>تخفیف عمومی</title>
-
 @endsection
 
 @section('content')
@@ -11,25 +10,26 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-      <li class="breadcrumb-item active font-size-12" aria-current="page">تخفیف عمومی</li></li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page">تخفیف عمومی</li>
     </ol>
-</nav>
+  </nav>
 
-<section class="row">
+
+  <section class="row">
     <section class="col-12">
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                    تخفیف عمومی
+               تخفیف عمومی
                 </h5>
             </section>
 
-            <secton class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
+            <section class="d-flex justify-content-between align-items-center mt-4 mb-3 border-bottom pb-2">
                 <a href="{{ route('admin.market.discount.commonDiscount.create') }}" class="btn btn-info btn-sm">ایجاد تخفیف عمومی</a>
                 <div class="max-width-16-rem">
                     <input type="text" class="form-control form-control-sm form-text" placeholder="جستجو">
                 </div>
-            </secton>
+            </section>
 
             <section class="table-responsive">
                 <table class="table table-striped table-hover">
@@ -45,44 +45,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td>15%</td>
-                            <td>28.000 تومان</td>
-                            <td>دهه فجر</td>
-                            <td>24اردیبهشت 99</td>
-                            <td>31اردیبهشت 99</td>
-                            <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>ویرایش </a>
-                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
-                        </tr>
+                        @foreach ($commonDiscounts as $commonDiscount)
 
                         <tr>
-                            <th>2</th>
-                            <td>15%</td>
-                            <td>28.000 تومان</td>
-                            <td>پیروزی انقلاب</td>
-                            <td>24اردیبهشت 99</td>
-                            <td>31اردیبهشت 99</td>
+                            <th>{{ $loop->iteration }}</th>
+                            <th>{{ $commonDiscount->percentage }}%</th>
+                            <th>{{ $commonDiscount->discount_ceiling }} تومان</th>
+                            <th>{{ $commonDiscount->title }}</th>
+                            <td>{{ jalaliDate($commonDiscount->start_date) }}</td>
+                            <td>{{ jalaliDate($commonDiscount->end_date) }}</td>
                             <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i>ویرایش </a>
-                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
+                                <a href="{{ route('admin.market.discount.commonDiscount.edit', $commonDiscount->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
+                                <form class="d-inline" action="{{ route('admin.market.discount.commonDiscount.destroy', $commonDiscount->id) }}" method="post">
+                                    @csrf
+                                    {{ method_field('delete') }}
+                                <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
+                            </form>
+                                </td>
                         </tr>
 
-                        <tr>
-                            <th>3</th>
-                            <td>15%</td>
-                            <td>28.000 تومان</td>
-                            <td>محرم</td>
-                            <td>24اردیبهشت 99</td>
-                            <td>31اردیبهشت 99</td>
-                            <td class="width-16-rem text-left">
-                                <a href="#" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> ویرایش</a>
-                                <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-trash-alt"></i>حذف </button>
-                            </td>
-                        </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </section>
@@ -90,5 +73,13 @@
         </section>
     </section>
 </section>
+
+@endsection
+
+
+@section('script')
+
+@include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
+
 
 @endsection

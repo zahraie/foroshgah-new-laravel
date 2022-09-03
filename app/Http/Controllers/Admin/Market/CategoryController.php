@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $productCategories = ProductCategory::orderBy('created_at', 'desc')->simplePaginate(15);
-        return view('admin.market.category.index' , compact('productCategories'));
+        return view('admin.market.category.index', compact('productCategories'));
     }
 
     /**
@@ -77,7 +77,6 @@ class CategoryController extends Controller
         $parent_categories = ProductCategory::where('parent_id', null)->get()->except($productCategory->id);
        return view('admin.market.category.edit', compact('productCategory', 'parent_categories'));
     }
-
     /**
      * Update the specified resource in storage.
      *

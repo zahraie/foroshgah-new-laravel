@@ -39,6 +39,7 @@
                             <th>نام کالا</th>
                             <th> تصویر کالا</th>
                             <th> قیمت</th>
+                            <th>وزن </th>
                             <th>دسته </th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
@@ -53,20 +54,21 @@
                                 <img src="{{ asset($product->image['indexArray'][$product->image['currentImage']] ) }}" alt="" width="100" height="50">
                             </td>
                             <td>{{ $product->price }} تومان</td>
-                            <td>کالا الکترونیکی</td>
+                            <td>{{ $product->weight }} کیلو</td>
+                            <td>{{ $product->category->name }}</td>
                             <td class="width-8-rem text-left">
                                 <div class="dropdown">
                                     <a href="#" class="btn btn-success btn-sm btn-block dorpdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-tools"></i> عملیات
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <a href="{{ route('admin.market.gallery.index' , $product->id) }}" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
-                                        <a href="{{ route('admin.market.color.index' , $product->id) }}" class="dropdown-item text-right"><i class="fa fa-list-ul"></i>رنگ کالا</a>
+                                        <a href="{{ route('admin.market.gallery.index', $product->id) }}" class="dropdown-item text-right"><i class="fa fa-images"></i> گالری</a>
+                                           <a href="{{ route('admin.market.color.index', $product->id) }}" class="dropdown-item text-right"><i class="fa fa-images"></i> مدیریت رنگ ها</a>
                                         <a href="{{ route('admin.market.product.edit', $product->id) }}" class="dropdown-item text-right"><i class="fa fa-edit"></i> ویرایش</a>
                                         <form class="d-inline" action="{{ route('admin.market.product.destroy', $product->id) }}" method="post">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="dropdown-item text-right delete"><i class="fa fa-window-close"></i> حذف</button>
+                                            @method('Delete')
+                                            <button type="submit" class="dropdown-item text-right"><i class="fa fa-window-close"></i> حذف</button>
                                         </form>
                                     </div>
                                 </div>
@@ -85,6 +87,8 @@
 </section>
 
 @endsection
+
+
 @section('script')
 
 @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])

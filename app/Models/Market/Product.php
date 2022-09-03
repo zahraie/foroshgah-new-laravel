@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory , SoftDeletes, Sluggable;
+    use HasFactory, SoftDeletes, Sluggable;
 
     public function sluggable(): array
     {
@@ -47,4 +47,18 @@ class Product extends Model
     {
         return $this->hasMany(Gallery::class);
     }
+
+    public function values()
+    {
+        return $this->hasMany(CategoryValue::class);
+    }
+
+
+    public function comments()
+    {
+        return $this->morphMany('App\Models\Content\Comment', 'commentable');
+    }
+
+
+
 }

@@ -22,7 +22,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                    ویرایش کالا
+                  ویرایش کالا
                 </h5>
             </section>
 
@@ -31,7 +31,7 @@
             </section>
 
             <section>
-                <form action="{{ route('admin.market.product.update', $product->id) }}" method="post" id="form" enctype="multipart/form-data">
+                <form action="{{ route('admin.market.product.update', $product->id) }}" method="post" enctype="multipart/form-data" id="form">
                     @csrf
                     @method('PUT')
                     <section class="row">
@@ -39,7 +39,7 @@
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">نام کالا</label>
-                                <input type="text" name="name" value="{{ old('name', $product->name) }}" class="form-control form-control-sm">
+                                <input type="text" name="name" value="{{ old('name', $product->name) }}"class="form-control form-control-sm">
                             </div>
                             @error('name')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -49,6 +49,7 @@
                             </span>
                         @enderror
                         </section>
+
 
                         <section class="col-12 col-md-6">
                             <div class="form-group">
@@ -73,9 +74,9 @@
 
                         <section class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="">انتخاب برند</label>
+                                <label for="">انتخاب دسته</label>
                                 <select name="brand_id" id="" class="form-control form-control-sm">
-                                    <option value="">برند را انتخاب کنید</option>
+                                    <option value="">دسته را انتخاب کنید</option>
                                     @foreach ($brands as $brand)
                                     <option value="{{ $brand->id }}" @if(old('brand_id', $product->brand_id) == $brand->id) selected @endif>{{ $brand->original_name }}</option>
                                     @endforeach
@@ -90,6 +91,9 @@
                             </span>
                         @enderror
                         </section>
+
+
+
 
 
                         <section class="col-12 col-md-6">
@@ -140,10 +144,10 @@
                         @enderror
                         </section>
 
-                           <section class="col-12 col-md-6">
+                        <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">طول</label>
-                                <input type="text" name="length" value="{{ old('length', $product->length)}}" class="form-control form-control-sm">
+                                <input type="text" name="length" value="{{ old('length', $product->length) }}" class="form-control form-control-sm">
                             </div>
                             @error('length')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -154,7 +158,7 @@
                         @enderror
                         </section>
 
-                           <section class="col-12 col-md-6">
+                        <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">عرض</label>
                                 <input type="text" name="width" value="{{ old('width', $product->width) }}" class="form-control form-control-sm">
@@ -168,7 +172,7 @@
                         @enderror
                         </section>
 
-                           <section class="col-12 col-md-6">
+                        <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">ارتفاع</label>
                                 <input type="text" name="height" value="{{ old('height', $product->height) }}" class="form-control form-control-sm">
@@ -182,8 +186,7 @@
                         @enderror
                         </section>
 
-
-                        <section class="col-12">
+                        <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">قیمت کالا</label>
                                 <input type="text" name="price" value="{{ old('price', $product->price) }}" class="form-control form-control-sm">
@@ -200,7 +203,7 @@
                         <section class="col-12">
                             <div class="form-group">
                                 <label for="">توضیحات</label>
-                                <textarea name="introduction" id="introduction" class="form-control form-control-sm" rows="6">{{ old('introduction', $product->introduction) }}</textarea>
+                                <textarea name="introduction" id="introduction" name="introduction" class="form-control form-control-sm" rows="6">{{ old('introduction', $product->introduction) }}</textarea>
                             </div>
                             @error('introduction')
                             <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
@@ -209,40 +212,6 @@
                                 </strong>
                             </span>
                         @enderror
-                        </section>
-
-                        <section class="col-12 col-md-6 my-2">
-                            <div class="form-group">
-                                <label for="status">وضعیت</label>
-                                <select name="status" id="" class="form-control form-control-sm" id="status">
-                                    <option value="0" @if (old('status', $product->status) == 0) selected @endif>غیرفعال</option>
-                                    <option value="1" @if (old('status', $product->status) == 1) selected @endif>فعال</option>
-                                </select>
-                            </div>
-                            @error('status')
-                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                    <strong>
-                                        {{ $message }}
-                                    </strong>
-                                </span>
-                            @enderror
-                        </section>
-
-                        <section class="col-12 col-md-6 my-2">
-                            <div class="form-group">
-                                <label for="marketable">قابل فروش بودن</label>
-                                <select name="marketable" id="" class="form-control form-control-sm" id="marketable">
-                                    <option value="0" @if (old('marketable', $product->status) == 0) selected @endif>غیرفعال</option>
-                                    <option value="1" @if (old('marketable', $product->status) == 1) selected @endif>فعال</option>
-                                </select>
-                            </div>
-                            @error('marketable')
-                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
-                                    <strong>
-                                        {{ $message }}
-                                    </strong>
-                                </span>
-                            @enderror
                         </section>
 
                         <section class="col-12">
@@ -263,6 +232,43 @@
                             @enderror
                         </section>
 
+
+                        <section class="col-12 col-md-6 my-2">
+                            <div class="form-group">
+                                <label for="status">وضعیت</label>
+                                <select name="status" id="" class="form-control form-control-sm" id="status">
+                                    <option value="0" @if (old('status', $product->status) == 0) selected @endif>غیرفعال</option>
+                                    <option value="1" @if (old('status', $product->status) == 1) selected @endif>فعال</option>
+                                </select>
+                            </div>
+                            @error('status')
+                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                            @enderror
+                        </section>
+
+
+                        <section class="col-12 col-md-6 my-2">
+                            <div class="form-group">
+                                <label for="marketable">قابل فروش بودن</label>
+                                <select name="marketable" id="" class="form-control form-control-sm" id="marketable">
+                                    <option value="0" @if (old('marketable', $product->marketable) == 0) selected @endif>غیرفعال</option>
+                                    <option value="1" @if (old('marketable', $product->marketable) == 1) selected @endif>فعال</option>
+                                </select>
+                            </div>
+                            @error('marketable')
+                                <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                    <strong>
+                                        {{ $message }}
+                                    </strong>
+                                </span>
+                            @enderror
+                        </section>
+
+
                         <section class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="">تاریخ انتشار</label>
@@ -279,28 +285,43 @@
                         </section>
 
 
-                        <section class="col-12 border-top border-bottom py-3 mb-3">
 
+
+                        <section class="col-12 border-top border-bottom py-3 mb-3">
                             @foreach ($product->metas as $meta)
 
-                            <section class="row">
+
+                            <section class="row meta-product">
 
                                 <section class="col-6 col-md-3">
                                     <div class="form-group">
                                         <input type="text" name="meta_key[{{ $meta->id }}]" class="form-control form-control-sm" value="{{ $meta->meta_key }}">
                                     </div>
+                                    @error('meta_key.*')
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                        <strong>
+                                            {{ $message }}
+                                        </strong>
+                                    </span>
+                                @enderror
                                 </section>
 
                                 <section class="col-6 col-md-3">
                                     <div class="form-group">
                                         <input type="text" name="meta_value[]" class="form-control form-control-sm" value="{{ $meta->meta_value }}">
                                     </div>
+                                    @error('meta_value.*')
+                                    <span class="alert_required bg-danger text-white p-1 rounded" role="alert">
+                                        <strong>
+                                            {{ $message }}
+                                        </strong>
+                                    </span>
+                                @enderror
                                 </section>
 
                             </section>
 
                             @endforeach
-
 
 
                         </section>
@@ -317,6 +338,7 @@
 </section>
 
 @endsection
+
 
 @section('script')
 
@@ -364,5 +386,6 @@
         })
     })
 </script>
+
 
 @endsection

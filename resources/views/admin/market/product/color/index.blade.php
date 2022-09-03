@@ -1,7 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('head-tag')
-<title>رنگ کالا</title>
+<title>مدیریت رنگ های محصول</title>
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item font-size-12"> <a href="#">خانه</a></li>
       <li class="breadcrumb-item font-size-12"> <a href="#">بخش فروش</a></li>
-      <li class="breadcrumb-item font-size-12 active" aria-current="page"> رنگ کالا</li>
+      <li class="breadcrumb-item font-size-12 active" aria-current="page"> رنگ</li>
     </ol>
   </nav>
 
@@ -20,7 +20,7 @@
         <section class="main-body-container">
             <section class="main-body-container-header">
                 <h5>
-                 رنگ کالا
+                    رنگ
                 </h5>
             </section>
 
@@ -37,8 +37,8 @@
                         <tr>
                             <th>#</th>
                             <th>نام کالا</th>
-                            <th>رنگ کالا </th>
-                            <th>افزایش قیمت </th>
+                            <th> رنگ کالا</th>
+                            <th> افزایش قیمت</th>
                             <th class="max-width-16-rem text-center"><i class="fa fa-cogs"></i> تنظیمات</th>
                         </tr>
                     </thead>
@@ -48,15 +48,21 @@
                         <tr>
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $color->color_name }}</td>
-                            <td>{{ $color->price_increase }}</td>
-                            <td class="width-8-rem text-left">
-                                <form class="d-inline" action="{{ route('admin.market.color.destroy', ['product' => $product->id, 'productColor' => $color->id]) }}" method="post">
+                            <td>
+                                {{ $color->color_name }}
+                            </td>
+                             <td>
+                                {{ $color->price_increase }}
+                            </td>
+
+                            <td class="width-16-rem text-left">
+                                <form class="d-inline" action="{{ route('admin.market.color.destroy', ['product' => $product->id , 'color' => $color->id] ) }}" method="post">
                                     @csrf
                                     {{ method_field('delete') }}
-                                <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
-                            </form>
-                            </td>
+                                    <button class="btn btn-danger btn-sm delete" type="submit"><i class="fa fa-trash-alt"></i> حذف</button>
+                                </form>
+
+                        </td>
                         </tr>
 
                         @endforeach
@@ -71,6 +77,8 @@
 </section>
 
 @endsection
+
+
 @section('script')
 
 @include('admin.alerts.sweetalert.delete-confirm', ['className' => 'delete'])
