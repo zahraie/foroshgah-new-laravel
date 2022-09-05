@@ -411,6 +411,8 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::put('/update/{setting}', [SettingController::class, 'update'])->name('admin.setting.update');
         Route::delete('/destroy/{setting}', [SettingController::class, 'destroy'])->name('admin.setting.destroy');
     });
+
+    Route::post('/notification/read-all',[NotificationController::class, 'readAll'])->name('admin.notification.readAll');
 });
 
 Route::namespace('Auth')->group(function () {
