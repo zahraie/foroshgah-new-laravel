@@ -14,6 +14,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
@@ -34,6 +35,8 @@ class User extends Authenticatable
         'activation',
         'profile_photo_path',
         'password',
+        'email_verified_at',
+        'mobile_verified_at',
     ];
 
     /**
@@ -83,5 +86,10 @@ class User extends Authenticatable
 
     public function roles(){
         return $this->belongsToMany(Role::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 }
